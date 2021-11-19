@@ -34,6 +34,7 @@ class MyFrame(wx.Frame):
         # Custom input handler to acts like a real cursor for text edition
         self.servercmb.Bind(wx.EVT_KEY_DOWN, self.OnComboKey)
         self.intersection_point = 0
+        self.delete_key = False
 
         self.protocmb = wx.ComboBox(self.panel, value='udp', choices=['udp', 'tcp'], size=(80, -1))
 
@@ -102,15 +103,21 @@ class MyFrame(wx.Frame):
         self.Close()
 
     def OnComboKey(self, evt):
-        # Backspace key, shift index to previous
-        if evt.GetKeyCode() == 8:
-            self.intersection_point = self.servercmb.GetInsertionPoint() - 1
-        # Delete key, keep current index
-        elif evt.GetKeyCode() == 127:
-            self.intersection_point = self.servercmb.GetInsertionPoint()
-        # Any other key, increase length
+        # If value is not empty (prevent bug if delete is pressed without any value)
+        if self.servercmb.GetValue():
+            # Backspace key, shift index to previous
+            if evt.GetKeyCode() == 8:
+                self.intersection_point = self.servercmb.GetInsertionPoint() - 1
+                self.delete_key = True
+            # Delete key, keep current index
+            elif evt.GetKeyCode() == 127:
+                self.intersection_point = self.servercmb.GetInsertionPoint()
+            # Any other key, increase length
+            else:
+                self.intersection_point = self.servercmb.GetInsertionPoint() + 1
         else:
-            self.intersection_point = self.servercmb.GetInsertionPoint() + 1
+            # No input value is set, start intersection at 1 (first char)
+            self.intersection_point = 1
         # Continue event
         evt.Skip()
 
@@ -132,6 +139,25 @@ class MyFrame(wx.Frame):
             self.servercmb.SetInsertionPoint(self.intersection_point)
         elif len(current_text) == 0:
             self.servercmb.Set(self.servers)
+
+        if self.delete_key:
+            self.delete_key = False
+            if self.can_complete:
+                current_text = current_text[:-1]
+
+        if current_text:
+            self.can_complete = False
+
+            for server in self.servers:
+                if server.startswith(current_text):
+                    self.ignore_evt_text = True
+                    self.servercmb.SetValue(server)
+                    # self.servercmb.SetInsertionPoint(len(current_text))
+                    self.servercmb.SetTextSelection(len(current_text), len(server))
+                    self.can_complete = True
+                    break
+        else:
+            self.servercmb.SetValue('')
 
     def OnCredentials(self, evt):
         dlg = wx.MessageDialog(self,
