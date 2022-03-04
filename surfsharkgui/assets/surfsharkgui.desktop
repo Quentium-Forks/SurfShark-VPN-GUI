@@ -5,6 +5,6 @@ Terminal=false
 Type=Application
 Categories=Application
 Icon=surfsharkgui
-Exec=surfsharkvpngui
+Exec=sudo surfsharkvpngui
 StartupWMClass=surfsharkvpngui
 X-Purism-FormFactor=Workstation;Mobile;
