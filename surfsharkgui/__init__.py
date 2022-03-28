@@ -40,6 +40,8 @@ class MyFrame(wx.Frame):
 
         credentials_file = os.path.join(config_path, 'credentials')
 
+        self.autocomplete = True
+
         if os.path.isfile(credentials_file):
             self.credentialsbtn = wx.Button(self.panel, -1, 'Modify Credentials')
         else:
@@ -140,24 +142,25 @@ class MyFrame(wx.Frame):
         elif len(current_text) == 0:
             self.servercmb.Set(self.servers)
 
-        if self.delete_key:
-            self.delete_key = False
-            if self.can_complete:
-                current_text = current_text[:-1]
+        if self.autocomplete:
+            if self.delete_key:
+                self.delete_key = False
+                if self.can_complete:
+                    current_text = current_text[:-1]
 
-        if current_text:
-            self.can_complete = False
+            if current_text:
+                self.can_complete = False
 
-            for server in self.servers:
-                if server.startswith(current_text):
-                    self.ignore_evt_text = True
-                    self.servercmb.SetValue(server)
-                    # self.servercmb.SetInsertionPoint(len(current_text))
-                    self.servercmb.SetTextSelection(len(current_text), len(server))
-                    self.can_complete = True
-                    break
-        else:
-            self.servercmb.SetValue('')
+                for server in self.servers:
+                    if server.startswith(current_text):
+                        self.ignore_evt_text = True
+                        self.servercmb.SetValue(server)
+                        # self.servercmb.SetInsertionPoint(len(current_text))
+                        self.servercmb.SetTextSelection(len(current_text), len(server))
+                        self.can_complete = True
+                        break
+            else:
+                self.servercmb.SetValue('')
 
     def OnCredentials(self, evt):
         dlg = wx.MessageDialog(self,
