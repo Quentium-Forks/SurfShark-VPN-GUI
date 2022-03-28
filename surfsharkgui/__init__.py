@@ -134,7 +134,10 @@ class MyFrame(wx.Frame):
 
         if current_text:
             matching = [x for x in self.servers if current_text.lower() in x.lower()]
-            self.servercmb.Set(matching)
+            if current_text in self.servers:
+                self.servercmb.Set(self.servers)
+            else:
+                self.servercmb.Set(matching)
             # Cancel incoming event from servercmb update
             self.ignore_evt_text = True
             self.servercmb.SetValue(current_text)
