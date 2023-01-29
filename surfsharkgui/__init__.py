@@ -194,6 +194,8 @@ class MyFrame(wx.Frame):
             with open(credentials_file, 'w') as fw:
                 fw.write(username + '\n' + password + '\n')
 
+        self.credentialsbtn.SetLabel('Modify Credentials')
+
     def OnConnect(self, evt):
         credentials_file = os.path.join(config_path, 'credentials')
 
