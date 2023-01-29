@@ -124,6 +124,11 @@ class MyFrame(wx.Frame):
         evt.Skip()
 
     def OnText(self, evt):
+        # Bug on windows after refresh list, also set a value to the combo box
+        # is messing with the input, and finally, autocomplete is also broken
+        if os.name == "nt":
+            return
+
         current_text = evt.GetString()
         if self.ignore_evt_text:
             self.ignore_evt_text = False
