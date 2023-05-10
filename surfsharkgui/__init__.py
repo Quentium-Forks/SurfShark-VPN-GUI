@@ -15,7 +15,7 @@ configurations_url = 'https://my.surfshark.com/vpn/api/v1/server/configurations'
 
 class MyFrame(wx.Frame):
     def __init__(self, parent, title):
-        wx.Frame.__init__(self, parent, -1, title, size=(320, 460))
+        wx.Frame.__init__(self, parent, -1, title, size=(400, 480))
 
         self.CreateStatusBar()
 
@@ -36,20 +36,20 @@ class MyFrame(wx.Frame):
         self.intersection_point = 0
         self.delete_key = False
 
-        self.protocmb = wx.ComboBox(self.panel, value='udp', choices=['udp', 'tcp'], size=(80, -1))
+        self.protocmb = wx.ComboBox(self.panel, value='udp', choices=['udp', 'tcp'])
 
         credentials_file = os.path.join(config_path, 'credentials')
 
         self.autocomplete = True
 
         if os.path.isfile(credentials_file):
-            self.credentialsbtn = wx.Button(self.panel, -1, 'Modify Credentials')
+            self.credentialsbtn = wx.Button(self.panel, -1, 'Modify Credentials', size=(-1, 36))
         else:
-            self.credentialsbtn = wx.Button(self.panel, -1, 'Enter Credentials')
+            self.credentialsbtn = wx.Button(self.panel, -1, 'Enter Credentials', size=(-1, 36))
         self.credentialsbtn.SetBackgroundColour('#ffffff')
         self.credentialsbtn.SetForegroundColour('#00d18a')
 
-        self.updatebtn = wx.Button(self.panel, -1, '🔄', size=(28, 28))
+        self.updatebtn = wx.Button(self.panel, -1, '🔄', size=(36, 36))
         self.updatebtn.SetBackgroundColour('#ffffff')
 
         self.connectbtn = wx.Button(self.panel, -1, 'Quick Connect')
@@ -60,7 +60,7 @@ class MyFrame(wx.Frame):
         self.disconnectbtn.SetBackgroundColour('#ffffff')
         self.disconnectbtn.SetForegroundColour('#00d18a')
 
-        self.info = wx.StaticText(self.panel, -1, size=(320, 20), style=wx.ALIGN_CENTRE)
+        self.info = wx.StaticText(self.panel, -1, size=(320, 20), style=wx.ALIGN_CENTER)
         self.info.SetForegroundColour('#ff7f00')
 
         logoimg = wx.Image(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'assets/surfsharkgui.png'), wx.BITMAP_TYPE_ANY)
@@ -80,12 +80,16 @@ class MyFrame(wx.Frame):
         hsizer.Add(self.updatebtn, 0, wx.ALIGN_CENTER, 10)
         sizer.Add(hsizer, 0, wx.ALIGN_CENTER, 10)
 
+        sizer.AddSpacer(20)
         sizer.Add(logoimgBmp, 0, wx.ALIGN_CENTER, 10)
-        sizer.AddSpacer(10)
+        sizer.AddSpacer(20)
 
         hsizer = wx.BoxSizer(wx.HORIZONTAL)
+        hsizer.AddSpacer(20)
         hsizer.Add(self.servercmb, 1, wx.ALIGN_LEFT, 10)
+        hsizer.AddSpacer(20)
         hsizer.Add(self.protocmb, 0, wx.ALIGN_LEFT, 10)
+        hsizer.AddSpacer(20)
 
         sizer.Add(hsizer, 0, wx.ALIGN_CENTER, 10)
         sizer.AddSpacer(10)
