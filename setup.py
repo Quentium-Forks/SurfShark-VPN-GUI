@@ -3,7 +3,7 @@ import setuptools
 
 setuptools.setup(
     name='Surfshark VPN GUI',
-    version='1.1',
+    version='1.2',
     description='Surfshark VPN GUI',
     keywords='vpn',
     author='Jake Day',
