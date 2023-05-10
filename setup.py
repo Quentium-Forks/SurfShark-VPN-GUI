@@ -1,15 +1,15 @@
 #!/usr/bin/python3
 import setuptools
-import setuptools.command.build_py
 
 setuptools.setup(
-    name='SurfShark VPN GUI',
+    name='Surfshark VPN GUI',
     version='1.1',
-    description='SurfShark VPN GUI',
+    description='Surfshark VPN GUI',
     keywords='vpn',
     author='Jake Day',
-    url='https://github.com/jakeday/SurfShark-VPN-GUI',
-    python_requires='>=3.8',
+    contributor='Quentin Lienhardt',
+    url='https://github.com/Quentium-Forks/Surfshark-VPN-GUI/',
+    python_requires='>=3.7',
     include_package_data=True,
     data_files=[
         ('/usr/share/icons/hicolor/scalable/apps', ['surfsharkgui/assets/surfsharkgui.png']),

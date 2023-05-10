@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------
-# SurfShark VPN GUI
+# Surfshark VPN GUI
 # by Jake Day
 # v1.0
 # Basic GUI for connecting to surfshark vpn
@@ -177,7 +177,7 @@ class MyFrame(wx.Frame):
         dlg.ShowModal()
         dlg.Destroy()
 
-        dlg = wx.TextEntryDialog(self, 'Enter Your Email/Username', 'SurfShark Credentials')
+        dlg = wx.TextEntryDialog(self, 'Enter Your Email/Username', 'Surfshark Credentials')
         save = True
 
         if dlg.ShowModal() == wx.ID_OK:
@@ -186,7 +186,7 @@ class MyFrame(wx.Frame):
             save = False
         dlg.Destroy()
 
-        dlg = wx.TextEntryDialog(self, 'Enter Your Password', 'SurfShark Credentials')
+        dlg = wx.TextEntryDialog(self, 'Enter Your Password', 'Surfshark Credentials')
 
         if dlg.ShowModal() == wx.ID_OK:
             password = dlg.GetValue()
@@ -259,7 +259,7 @@ class MyApp(wx.App):
     def OnInit(self):
         self.Prep()
 
-        frame = MyFrame(None, 'SurfShark VPN GUI')
+        frame = MyFrame(None, 'Surfshark VPN GUI')
         self.SetTopWindow(frame)
 
         frame.Show(True)
